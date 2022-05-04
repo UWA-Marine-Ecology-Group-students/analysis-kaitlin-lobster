@@ -1,5 +1,10 @@
 install.packages("tidyverse")
+install.packages(c("ggplot2", "ggpubr", "broom", "AICcmodavg"))
 library(tidyverse)
+library(ggplot2)
+library(ggpubr)
+library(broom)
+library(AICcmodavg)
 
 structure_density <- read.csv("data/structure_density_copy.csv")
 
@@ -46,3 +51,10 @@ finalchoice$lobster <- struct_dens_clean$lobster
 head(finalchoice)
 
 
+#attempting ANOVA with residency time (non-independence is an issue)
+
+residency<- read.csv("data/structure_density_residencetime_anova.csv")
+
+summary(aov(residency$Time~residency$Density))
+
+boxplot(residency$Time~residency$Density)
