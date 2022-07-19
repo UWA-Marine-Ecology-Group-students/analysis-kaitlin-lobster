@@ -4,7 +4,7 @@
 # Task:    Data wrangling and modelling for first/final choice data
 # author:  Kaitlin McCloghry, Kingsley Griffin
 # date:    April-July 2022
-##
+#
 
 library(tidyverse)
 library(reshape2)
