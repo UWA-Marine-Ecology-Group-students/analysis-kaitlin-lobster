@@ -109,7 +109,7 @@ ggplot() +
   labs(y = "nchoice/ntrials") +
   theme_bw()
 
-ggsave("plots/p_firstchoice.png")
+ggsave("plots/structure_density_firstchoice.png")
 
 
 
@@ -174,4 +174,4 @@ ggplot() +
   labs(y = "nchoice/ntrials") +
   theme_bw()
 
-ggsave("plots/p_lastchoice.png")
+ggsave("plots/structure_density_lastchoice.png")
