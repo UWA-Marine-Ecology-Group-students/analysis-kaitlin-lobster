@@ -24,7 +24,7 @@ structvsscent_firstchoice_pivoted <- struct_vs_scent_clean %>%
 structvsscent_firstchoice_rum <- structvsscent_firstchoice_pivoted %>% 
   pivot_longer(cols = c("side.A", "side.B"),
                names_to = "side", values_to = "treatment" ) %>% 
-#  mutate(first.choice = ifelse(first.choice==treatment, 1, 0))
+  mutate(first.choice = ifelse(first.choice==treatment, 1, 0))
 
 #save file
 write.csv(structvsscent_firstchoice_rum,"C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/Modified data\\structurevsscent_firstchoice_RUM.csv", row.names = FALSE)
@@ -40,7 +40,7 @@ structvsscent_finalchoice_pivoted <- struct_vs_scent_clean %>%
 structvsscent_finalchoice_rum <- structvsscent_finalchoice_pivoted %>% 
   pivot_longer(cols = c("side.A", "side.B"),
                names_to = "side", values_to = "treatment" ) %>% 
-  #  mutate(first.choice = ifelse(first.choice==treatment, 1, 0))
+  mutate(final.choice = ifelse(final.choice==treatment, 1, 0))
 
 #remove NAs
 structvsscent_finalchoice_rum_clean <- structvsscent_finalchoice_rum[complete.cases(structvsscent_finalchoice_rum),]
