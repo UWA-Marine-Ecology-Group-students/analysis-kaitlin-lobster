@@ -46,7 +46,7 @@ struct_dens_clean$higher    <- pmax(struct_dens_clean$density.A, struct_dens_cle
 # trying summary by level
 
 
-
+head(struct_dens_clean)
 
 
 
@@ -61,6 +61,9 @@ lower_n  <- summarise(group_by(struct_dens_clean, lower), ntest = n())
 higher_n <- summarise(group_by(struct_dens_clean, higher), ntest = n())
 names(lower_n)[1]  <- "level"
 names(higher_n)[1] <- "level"
+
+lower_n
+higher_n
 
 trials <- merge(lower_n, higher_n, by = "level", all = TRUE) %>%
   replace_na(list(ntest.y=0, ntest.x=0))
