@@ -53,3 +53,15 @@ levelplot(clas_image_factor, col.regions=land_col, xlab="", ylab="")
 
 
 
+
+############################################
+#patch-level analysis
+############################################
+
+#8-neighbour rule to identify patches
+seagrass_patches <- clump(clas_image_factor, directions=8)
+plot(seagrass_patches)#plot the result
+
+#Not sure why there is only one patch
+#Is it because there is more than 2 factors?
+cellStats(seagrass_patches, max)
