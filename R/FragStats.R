@@ -5,7 +5,9 @@
 #install.packages("rgdal")
 #install.packages("lattice")
 #install.packages("rasterVis")
-install.packages("SSDM")
+#install.packages("devtools")
+#install_version("SDMTools", version = "1.1-221.2", repos = "https://cran.r-project.org")
+
 
 library(landscapemetrics)
 library(landscapetools)
@@ -16,6 +18,7 @@ library(ggplot2)
 library(lattice)
 library(rasterVis)
 library(SSDM)
+library(devtools)
 
 
 
@@ -35,7 +38,7 @@ rclmat <- matrix(m, ncol=3, byrow=TRUE)
 class_image_two <- reclassify(clas_image, rclmat)
 plot(class_image_two)
 
-#Make sand NA
+#Make non-vegetation NA
 class_image_two[class_image_two == 2] <- NA
 
 #check raster is suitable for analysis
@@ -83,5 +86,13 @@ cellStats(seagrass_patches_testpatch, max)
 #mean perimeter area ratio of each patch = 5.61
 lsm_l_para_mn(testpatch_factor, directions = 8)
 
-testpatchstats <- PatchStat(as.matrix(testpatch_factor), cellsize=0.499991)
-SSDM:::
+#statistics by patch
+testpatchstats <- SDMTools::PatchStat(as.matrix(seagrass_patches_testpatch), cellsize=0.499991)
+testpatchstats
+
+#histogram of log area of patches 
+hist(log(testpatchstats$area))
+
+hist(testpatchstats$perim.area.ratio)
+
+
