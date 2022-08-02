@@ -93,6 +93,7 @@ testpatchstats
 #histogram of log area of patches 
 hist(log(testpatchstats$area))
 
+#histogram of perimeter area ratio 
 hist(testpatchstats$perim.area.ratio)
 
 
