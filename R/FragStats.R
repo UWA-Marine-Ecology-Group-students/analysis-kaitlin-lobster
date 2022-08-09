@@ -72,15 +72,12 @@ levelplot(testpatch_factor, col.regions=land_col, xlab="", ylab="")
 
 
 ############################################
-#patch-level analysis
+#patch-level analysis - test patch
 ############################################
 
 #8-neighbour rule to identify patches
 seagrass_patches_testpatch <- clump(testpatch_factor, directions=8)
 plot(seagrass_patches_testpatch)#plot the result
-
-#Not sure why there is only one patch
-#Is it because there is more than 2 factors?
 cellStats(seagrass_patches_testpatch, max)
 
 #mean perimeter area ratio of each patch = 5.61
@@ -96,4 +93,35 @@ hist(log(testpatchstats$area))
 #histogram of perimeter area ratio 
 hist(testpatchstats$perim.area.ratio)
 
+############################################
+#patch-level analysis - full area
+############################################
+# convert to categorical raster
+class_image_two_factor <- as.factor(class_image_two) 
+levels(class_image_two_factor)
 
+#displays patches within the landscape
+landscapemetrics:::show_patches(class_image_two_factor, class = 1)
+
+#8-neighbour rule to identify patches
+seagrass_patches <- clump(class_image_two_factor, directions=8)
+plot(seagrass_patches)#plot the result
+cellStats(seagrass_patches, max)
+
+#mean perimeter area ratio of each patch = 5.68
+lsm_l_para_mn(class_image_two_factor, directions = 8)
+
+#statistics by patch
+patchstats <- SDMTools::PatchStat(as.matrix(seagrass_patches), cellsize=0.499991)
+patchstatsmean <- colMeans(patchstats[,2:ncol(patchstats)])
+patchstatsmean
+
+#histogram of log area of patches 
+hist(log(patchstats$area))
+
+#histogram of perimeter area ratio 
+hist(patchstats$perim.area.ratio)
+
+#heatmap of fragmentation
+#compare years
+#outline thesis story to identify gaps

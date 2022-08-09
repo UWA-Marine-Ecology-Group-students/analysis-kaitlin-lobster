@@ -5,7 +5,7 @@ library(dplyr)
 library(tidyr)
 
 # read in data
-structure_density <- read.csv("data/Structure_density_raw_19.07.22.csv")
+structure_density <- read.csv("C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/Structure_density_raw_19.07.22.csv")
 
 # tidy up the data
 struct_dens_clean <- filter(structure_density, Useable.data == 1)
@@ -13,8 +13,10 @@ head(struct_dens_clean)
 
 
 
+###########################
+#     FIRST CHOICE        #
+###########################
 
-#FIRST CHOICE
 data_firstchoice_pivoted <- struct_dens_clean %>% 
   dplyr::select(round, trial, lobster, density.A, density.B, first.choice)
 
@@ -24,14 +26,21 @@ data_firstchoice_rum <- data_firstchoice_pivoted %>%
                names_to = "side", values_to = "density" ) %>% 
   mutate(first.choice = ifelse(first.choice==density, 1, 0))
 
+#remove letters from lobster IDs
+density_firstchoice_rum_lobterID <- data_firstchoice_rum %>% 
+  mutate(lobster = str_replace(lobster,"[:alpha:]", ""))
+View(density_firstchoice_rum_lobterID)
+
 #save file
-write.csv(data_firstchoice_rum,"C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/Modified data\\structure_density_firstchoice_RUM.csv", row.names = FALSE)
+write.csv(density_firstchoice_rum_lobterID,"C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/Modified data\\structure_density_firstchoice_RUM.csv", row.names = FALSE)
 
 
 
 
+###########################
+#     FINAL CHOICE        #
+###########################
 
-#FINAL CHOICE
 data_finalchoice_pivoted <- struct_dens_clean %>% 
   dplyr::select(round, trial, lobster, density.A, density.B, final.choice)
 
@@ -47,8 +56,14 @@ data_finalchoice_rum_clean <- data_finalchoice_rum[complete.cases(data_finalchoi
 #check for no NAs
 sum(is.na(data_finalchoice_rum_clean))
 
+
+data_finalchoice_rum_lobterID <- data_finalchoice_rum_clean %>% 
+  mutate(lobster = str_replace(lobster,"[:alpha:]", ""))
+View(data_finalchoice_rum_lobterID)
+
+
 #save file
-write.csv(data_finalchoice_rum_clean,"C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/Modified data\\structure_density_finalchoice_RUM.csv", row.names = FALSE)
+write.csv(data_finalchoice_rum_lobterID,"C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/Modified data\\structure_density_finalchoice_RUM.csv", row.names = FALSE)
 
 
 
