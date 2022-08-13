@@ -25,12 +25,16 @@ library(devtools)
 wd <- ("C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data")
 setwd(wd)
 
+
+########################
+#         2019        #
+########################
+
 #load in raster image
 #have merges 7 and 1 into 1 - "vegetation", and 3 and 5 as 3 - "no vegetation". 2 remains as "partial vegetation"
 clas_image <- raster(paste0("C:/Users/kaitl/Documents/Kaitlin's Stuff/Dissertation/analysis-kaitlin-lobster/data/seagrass_reclass.tif"))
 clas_image
 plot(clas_image)
-
 
 #reclassify for vegetation and non vegetation
 m <- c(0, 2, 1,  2.1, 3, 2)
@@ -122,6 +126,85 @@ hist(log(patchstats$area))
 #histogram of perimeter area ratio 
 hist(patchstats$perim.area.ratio)
 
-#heatmap of fragmentation
-#compare years
-#outline thesis story to identify gaps
+
+
+########################
+#         2016        #
+########################
+
+#load in raster image
+#have merged 7 and 1 into 1 - "vegetation", and 3 and 5 as 3 - "no vegetation". 2 remains as "partial vegetation"
+sgrass2016 <- raster("data/seagrass_reclass2016.tif")
+plot(sgrass2016)[]
+
+# fix classes into just seagrass or not
+sgrass2016[sgrass2016 == 3] <- NA
+sgrass2016[sgrass2016 > 0] <- 1
+plot(sgrass2016)
+
+# convert to categorical raster
+sgrass2016_factor <- as.factor(sgrass2016) 
+levels(sgrass2016_factor)
+
+#displays patches within the landscape
+landscapemetrics:::show_patches(sgrass2016_factor, class = 1)
+
+#8-neighbour rule to identify patches
+seagrass_patches2016 <- clump(sgrass2016_factor, directions=8)
+plot(seagrass_patches2016)#plot the result
+cellStats(seagrass_patches2016, max)
+
+#mean perimeter area ratio of each patch = 5.83
+lsm_l_para_mn(sgrass2016_factor, directions = 8)
+
+#statistics by patch
+patchstats2016 <- SDMTools::PatchStat(as.matrix(seagrass_patches2016), cellsize=0.499991)
+patchstatsmean2016 <- colMeans(patchstats2016[,2:ncol(patchstats2016)])
+patchstatsmean2016
+
+#histogram of log area of patches 
+hist(log(patchstats2016$area))
+
+#histogram of perimeter area ratio 
+hist(patchstats2016$perim.area.ratio)
+
+
+########################
+#         2010        #
+########################
+
+#load in raster image
+#have merged 7 and 1 into 1 - "vegetation", and 3 and 5 as 3 - "no vegetation". 2 remains as "partial vegetation"
+sgrass2010 <- raster("data/seagrass_reclass2010.tif")
+plot(sgrass2010)[]
+
+# fix classes into just seagrass or not
+sgrass2010[sgrass2010 == 3] <- NA
+sgrass2010[sgrass2010 > 0] <- 1
+plot(sgrass2010)
+
+# convert to categorical raster
+sgrass2010_factor <- as.factor(sgrass2010) 
+levels(sgrass2010_factor)
+
+#displays patches within the landscape
+landscapemetrics:::show_patches(sgrass2010_factor, class = 1)
+
+#8-neighbour rule to identify patches
+seagrass_patches2010 <- clump(sgrass2010_factor, directions=8)
+plot(seagrass_patches2010)#plot the result
+cellStats(seagrass_patches2010, max)
+
+#mean perimeter area ratio of each patch = 5.47
+lsm_l_para_mn(sgrass2010_factor, directions = 8)
+
+#statistics by patch
+patchstats2010 <- SDMTools::PatchStat(as.matrix(seagrass_patches2010), cellsize=0.499991)
+patchstatsmean2010 <- colMeans(patchstats2010[,2:ncol(patchstats2010)])
+patchstatsmean2010
+
+#histogram of log area of patches 
+hist(log(patchstats2010$area))
+
+#histogram of perimeter area ratio 
+hist(patchstats2010$perim.area.ratio)
