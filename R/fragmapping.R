@@ -16,7 +16,7 @@ library(landscapemetrics)
 
 #load in raster image
 #have merges 7 and 1 into 1 - "vegetation", and 3 and 5 as 3 - "no vegetation". 2 remains as "partial vegetation"
-sgrass <- raster("data/seagrass_reclass.tif")
+sgrass <- raster("data/seagrass_reclass2019.tif")
 plot(sgrass)[]
 
 # fix classes into just seagrass or not
