@@ -23,7 +23,7 @@ density_first_plot <- ggplot(density_first, aes(x = xaxis.labels, y = prob.mean,
                         geom_ribbon(aes(ymin = low.CI, ymax = up.CI), 
                            alpha=0.1, 
                            linetype="blank",
-                           fill="#8DB2A6")+
+                           fill="#51A287")+
                         theme_classic() +
                         expand_limits(y=c(0,0.25)) +
                         xlim(0,1200) +
@@ -57,7 +57,7 @@ density_final_plot <- ggplot(density_final, aes(x = xaxis.labels, y = prob.mean,
                         geom_ribbon(aes(ymin = low.CI, ymax = up.CI), 
                                     alpha=0.1, 
                                     linetype="blank",
-                                    fill="#8DB2A6")+
+                                    fill="#51A287")+
                         theme_classic() +
                         expand_limits(y=c(0,0.25)) +
                         xlim(0,1200) +
