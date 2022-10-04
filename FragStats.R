@@ -123,6 +123,8 @@ patchstatsmean
 #histogram of log area of patches 
 hist(log(patchstats$area))
 
+hist(patchstats$area)
+
 #histogram of perimeter area ratio 
 hist(patchstats$perim.area.ratio)
 
